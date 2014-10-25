@@ -19,7 +19,7 @@ def get_command_line():
     '''
     logger = get_logger()
     parser = optparse.OptionParser()
-    parser.add_option('-t', '--test', dest='test', default=False, action='store_true', help='Run unit tests and exit')
+    parser.add_option('-t', '--test', dest='test', default=False, action='store_true', help='Store true in a variable called test')
     (opts, args) = parser.parse_args()
     logger.info("Got command line arguments")
 
