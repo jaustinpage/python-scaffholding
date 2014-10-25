@@ -6,7 +6,7 @@ import sys
 
 CONFIG_FILE="scaffholding.config"
 
-def get_logger(log_level=logging.INFO):
+def get_logger(log_level=logging.WARNING):
     '''
     Set up some common logging stuff. Source this from module functions or class functions
     '''
@@ -21,7 +21,7 @@ def get_command_line():
     '''
     logger = get_logger()
     parser = optparse.OptionParser()
-    parser.add_option('-t', '--test', dest='test', default=False, action='store_true', help='Store true in a variable called test')
+    parser.add_option('-v', '--verbose', dest='verbose', default=False, action='store_true', help='Enable verbose logging')
     (opts, args) = parser.parse_args()
     logger.info("Got command line arguments")
 
@@ -68,9 +68,13 @@ def main():
     '''
     The main function
     '''
-    logger = get_logger()
-    logger.info("Program Started")
     (opts, args) = get_command_line()
+    logger = None
+    if opts.verbose:
+        logger = get_logger(log_level=logging.info)
+    else:
+        logger = get_logger()
+    logger.info("Program Started")
 
     logger.info("Program Finished")
     sys.exit(0)
