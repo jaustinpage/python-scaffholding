@@ -4,6 +4,8 @@ import logging
 import optparse
 import sys
 
+CONFIG_FILE="scaffholding.config"
+
 def get_logger(log_level=logging.INFO):
     '''
     Set up some common logging stuff. Source this from module functions or class functions
@@ -32,6 +34,20 @@ def get_command_line():
     #        sys.exit(-1)
     
     return (opts, args)
+
+def get_config_file():
+    '''
+    If you want to use a config file, use this.
+    '''
+    if os.path.isfile(CONFIG_FILE):
+        config_file = ConfigParser.ConfigParser()
+        config_file.read(CONFIG_FILE)
+        first_variable = config_file.get('scaffholding', 'first_varariable')
+        second_variable = config_file.get('scaffholding', 'second_variable')
+        return (first_variable, second_variable)
+    else:
+        raise Exception("Could not find config file: %s" % CONFIG_FILE)
+
 
 class MyClass(object):
     '''
