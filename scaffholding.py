@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import logging
-import optparse
+import argparse
 import sys
 
 CONFIG_FILE="scaffholding.config"
@@ -20,9 +20,9 @@ def get_command_line():
     Get command line options and arguments, and set up help.
     '''
     logger = get_logger()
-    parser = optparse.OptionParser()
-    parser.add_option('-v', '--verbose', dest='verbose', default=False, action='store_true', help='Enable verbose logging')
-    (opts, args) = parser.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--verbose', dest='verbose', default=False, action='store_true', help='Enable verbose logging')
+    args = parser.parse_args()
     logger.info("Got command line arguments")
 
     # Check for mandatories
@@ -33,7 +33,7 @@ def get_command_line():
     #        parser.print_help()
     #        sys.exit(-1)
     
-    return (opts, args)
+    return args
 
 def get_config_file():
     '''
@@ -68,9 +68,9 @@ def main():
     '''
     The main function
     '''
-    (opts, args) = get_command_line()
+    args = get_command_line()
     logger = None
-    if opts.verbose:
+    if args.verbose:
         logger = get_logger(log_level=logging.info)
     else:
         logger = get_logger()
